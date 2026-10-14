@@ -26,12 +26,12 @@ const steps = [
   },
   {
     title: "04 / Mount the app shell",
-    body: "Use the scaffold root layout and template. The layout includes all three fonts, ThemeScript, ThemeProvider, TooltipProvider, and Toaster. Import globals.css once; remove your host’s duplicate global stylesheet import.",
-    code: "cp ../playground-kit/scaffold/root-layout.tsx src/app/layout.tsx\ncp ../playground-kit/scaffold/template.tsx src/app/template.tsx",
+    body: "Use the scaffold root layout and template. The layout includes all three fonts, ThemeScript, ThemeProvider, TooltipProvider, Toaster, and AppChrome (MobileTopBar + TabBar on phones). Import globals.css once; remove your host’s duplicate global stylesheet import. Edit tab items in src/components/app-chrome.tsx (already copied with the kit src).",
+    code: "cp ../playground-kit/scaffold/root-layout.tsx src/app/layout.tsx\ncp ../playground-kit/scaffold/template.tsx src/app/template.tsx\n# then edit src/components/app-chrome.tsx tab items",
   },
   {
     title: "05 / Give the tool its identity",
-    body: "Update the title and description in your root layout. Rename THEME_STORAGE_KEY for this product, replace the logo if needed, and update the mobile home label. Compose screens from the inventory.",
+    body: "Update the title and description in your root layout. Rename THEME_STORAGE_KEY for this product, replace the logo if needed, and set the mobile home label plus TabBar items. Compose screens from the inventory.",
     code: 'import { PageHeader, Panel, EmptyState } from "@/components/patterns/layout"\nimport { Button } from "@/components/ui/button"\n\nexport default function ToolsPage() {\n  return (\n    <main className="mx-auto max-w-6xl px-4 py-8">\n      <PageHeader title="My tools" actions={<Button>New tool</Button>} />\n      <Panel title="Recent">Your tool content</Panel>\n    </main>\n  )\n}',
   },
 ]

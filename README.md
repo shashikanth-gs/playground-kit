@@ -70,8 +70,8 @@ The docs app lives in `src/app/`, `src/components/docs/`, and `src/lib/docs/`. I
 2. Run `npm run kit`, or download the archive from the catalog. Extract `artifacts/playground-kit.tar.gz`.
 3. Copy the extracted kit's `src/` into the host's `src/`, `public/brand/` into its `public/brand/`, and `components.json` into its root. Review existing file conflicts first.
 4. Run `node /path/to/playground-kit/install-dependencies.mjs --target /path/to/host`, then install with the host's package manager. The helper preserves scripts and compatible dependency versions; it refuses incompatible or too-old versions.
-5. Use `scaffold/root-layout.tsx` as `src/app/layout.tsx` and `scaffold/template.tsx` as `src/app/template.tsx`. Import `@/styles/globals.css` once and configure Tailwind's PostCSS plugin.
-6. Update product metadata, theme storage key, brand artwork, and phone home label.
+5. Use `scaffold/root-layout.tsx` as `src/app/layout.tsx` and `scaffold/template.tsx` as `src/app/template.tsx`. The root layout mounts `AppChrome` (`MobileTopBar` + `TabBar`) for phones — edit tab items in `src/components/app-chrome.tsx`. Import `@/styles/globals.css` once and configure Tailwind's PostCSS plugin.
+6. Update product metadata, theme storage key, brand artwork, phone home label, and tab routes.
 7. Keep `AGENTS.md`, `COMPONENTS.md`, `LICENSE`, `BRAND.md`, `THIRD_PARTY_NOTICES.md`, and `licenses/` with redistributed source.
 
 The archive excludes the docs app, generated output, Git metadata, installed packages, and environment files. The exported catalog also serves notices under `/licenses/`.

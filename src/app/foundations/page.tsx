@@ -121,6 +121,10 @@ export default function FoundationsPage() {
               <li>Reuse primitives; compose new patterns.</li>
               <li>Use ResponsiveDialog for phone-ready overlays.</li>
               <li>Motion respects prefers-reduced-motion.</li>
+              <li>
+                Mount AppChrome (or MobileTopBar + TabBar) in the root layout so
+                phones get bottom navigation.
+              </li>
               <li>Phone chrome keeps at least 44px touch targets.</li>
               <li>Icons come from Lucide; controls use size-4.</li>
             </ul>

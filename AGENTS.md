@@ -23,7 +23,7 @@ Host app: Next.js 16, React 19, Tailwind CSS 4, TypeScript. Path alias `@/*` →
 
 1. Create the app with Tailwind. In the full repository, dependencies are listed in `package.json`. In the extracted kit, run `node install-dependencies.mjs --target /path/to/app` to merge the requirements from `dependencies.json`, then install with the host's package manager.
 2. Copy the generated kit's `src/` into the app's `src/`. Copy `public/brand/` into the app's `public/brand/`. Copy `components.json` to the app root. Do not copy the reference catalog into a product app.
-3. Replace the root layout with `scaffold/root-layout.tsx` (edit title, description, and `themeColor` for the product).
+3. Replace the root layout with `scaffold/root-layout.tsx` (edit title, description, and `themeColor` for the product). Edit tab items in `src/components/app-chrome.tsx` (ships with the kit `src/` copy).
 4. Copy `scaffold/template.tsx` to `src/app/template.tsx`.
 5. Import the stylesheet once, from the root layout: `import "@/styles/globals.css"`. Delete any other global CSS so tokens are not duplicated.
 6. Rename `THEME_STORAGE_KEY` in `src/components/theme/theme-script.tsx` to a key unique to this product (for example `acme-theme`). The kit value is `playground-kit-theme`.
@@ -47,19 +47,41 @@ Every app mounts this once:
 - `TooltipProvider` around the tree (`delay={300}`)
 - `Toaster` from `@/components/ui/sonner` (toasts do nothing without it)
 - Font variables on `<html>`: `--font-geist-sans`, `--font-geist-mono`, `--font-space-grotesk`
+- Phone chrome via `AppChrome` (or `MobileTopBar` + `TabBar` directly) around page content — without this, phones have no bottom navigation
 
 Page titles inside the app use `PageHeader`, which registers the string with `ScreenTitle` so the phone top bar can show it on scroll.
 
-Phone navigation:
+Phone navigation — prefer the composed shell. The scaffold root layout mounts `AppChrome` from `@/components/app-chrome` (edit that file’s tabs). The reusable primitive is:
+
+```tsx
+import { AppChrome } from "@/components/navigation/app-chrome"
+
+<AppChrome
+  homeHref="/"
+  homeLabel="App home"
+  parentOf={(pathname) => /* parent route or null */}
+  items={[
+    { title: "Home", href: "/", icon: HouseIcon, exact: true },
+    { title: "Tools", href: "/tools/", icon: LayersIcon },
+  ]}
+>
+  {children}
+</AppChrome>
+```
+
+
+Or mount the pieces yourself:
 
 ```tsx
 <MobileTopBar homeHref="/" parentOf={(pathname) => /* parent route or null */} trailing={/* optional */} />
+{/* Pad main content so the fixed TabBar does not cover it */}
+<div className="pb-[calc(3.75rem+env(safe-area-inset-bottom))] md:pb-0">{children}</div>
 <TabBar items={[{ title: "Home", href: "/", icon: HouseIcon, exact: true }]} />
 ```
 
 Set `exact` on a root tab so it does not stay active on child paths. Push a screen with `<Link transitionTypes={["nav-forward"]}>`. Pop with `transitionTypes={["nav-back"]}`.
 
-Mark persistent chrome with `data-chrome` so view transitions and text selection skip it. `TabBar` and `MobileTopBar` already do this.
+Mark persistent chrome with `data-chrome` so view transitions and text selection skip it. `TabBar` and `MobileTopBar` already do this. Both are `md:hidden` — add a desktop sidebar or top nav separately.
 
 ## Rules
 
