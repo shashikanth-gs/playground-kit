@@ -39,7 +39,7 @@ export function MobileTopBar({
     <header
       data-chrome
       style={{ viewTransitionName: "top-bar" }}
-      className={cn("sticky top-0 z-40 border-b bg-background/85 pt-safe backdrop-blur-xl backdrop-saturate-150 md:hidden", className)}
+      className={cn("sticky top-0 z-40 border-b bg-background/95 pt-safe backdrop-blur-xl backdrop-saturate-150 md:hidden", className)}
     >
       <div className="relative flex h-12 items-center gap-2 px-2">
         <Suspense fallback={<Leading homeHref={homeHref} homeLabel={homeLabel} logo={logo} parent={null} />}>

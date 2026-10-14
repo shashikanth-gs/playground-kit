@@ -199,7 +199,7 @@ export function DocsShell({
           </Button>
         </div>
       </header>
-      <div className="mx-auto grid w-full max-w-[1600px] pb-[calc(3.75rem+env(safe-area-inset-bottom))] md:pb-0 lg:grid-cols-[240px_minmax(0,1fr)]">
+      <div className="grid w-full pb-[calc(3.75rem+env(safe-area-inset-bottom))] md:pb-0 lg:grid-cols-[240px_minmax(0,1fr)]">
         <aside
           data-chrome
           className="sticky top-16 hidden h-[calc(100svh-4rem)] flex-col border-r px-5 py-8 lg:flex"
