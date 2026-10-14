@@ -278,6 +278,44 @@ export default function Overview() {
           ))}
         </div>
       </section>
+      <section className="mt-14 space-y-8 border-t pt-12">
+        <SectionHeader
+          eyebrow="Used by"
+          title="Built on this kit."
+          description="Products that share this visual system for interactive technical playgrounds."
+        />
+        <ul className="flex flex-wrap items-center gap-x-10 gap-y-6">
+          <li>
+            <a
+              href="https://http2xx.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              <span className="relative size-10 shrink-0 overflow-hidden rounded-md border border-border">
+                <img
+                  src={asset("/brand/used-by/http2xx-logomark-dark.png")}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="size-10 dark:hidden"
+                />
+                <img
+                  src={asset("/brand/used-by/http2xx-logomark-on-black.png")}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="hidden size-10 dark:block"
+                />
+              </span>
+              <span className="font-mono text-sm tracking-wide text-muted-foreground transition-colors group-hover:text-brand-text">
+                http2xx.io
+              </span>
+              <ArrowUpRightIcon className="size-3.5 shrink-0 text-subtle-foreground" />
+            </a>
+          </li>
+        </ul>
+      </section>
       <section className="mt-14 grid gap-7 rounded-xl border bg-sunken p-6 sm:p-8 xl:grid-cols-2">
         <div>
           <Eyebrow code="→">Make it yours</Eyebrow>
