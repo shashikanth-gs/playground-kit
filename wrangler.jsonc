@@ -2,6 +2,8 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "playground-kit",
   "compatibility_date": "2026-10-14",
+  "workers_dev": true,
+  "preview_urls": true,
   "assets": {
     "directory": "./out",
     "html_handling": "auto-trailing-slash",
