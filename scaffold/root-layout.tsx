@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google"
 
+import { AppChrome } from "@/components/app-chrome"
 import { ThemeProvider } from "@/components/theme/theme-provider"
 import { ThemeScript } from "@/components/theme/theme-script"
 import { Toaster } from "@/components/ui/sonner"
@@ -27,6 +28,10 @@ export const viewport: Viewport = {
   ],
 }
 
+/**
+ * Host root layout. AppChrome mounts MobileTopBar + TabBar on phones — edit
+ * tab items in `src/components/app-chrome.tsx`.
+ */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
@@ -40,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           <TooltipProvider delay={300}>
-            {children}
+            <AppChrome>{children}</AppChrome>
             <Toaster position="bottom-right" />
           </TooltipProvider>
         </ThemeProvider>

@@ -23,13 +23,18 @@ Tone values: `brand | success | warning | danger | info | neutral` from `@/lib/t
 
 ## Navigation chrome
 
+Mount phone chrome in the root layout. The scaffold does this with `AppChrome`. Without it, phones have no bottom navigation.
+
 | Export | File | Use |
 | --- | --- | --- |
+| `AppChrome` | `src/components/navigation/app-chrome.tsx` | Composed phone shell: `MobileTopBar` + content padding + `TabBar`. Pass `items`, `homeHref`, `parentOf`. Hidden chrome from `md` up. |
 | `MobileTopBar` | `src/components/navigation/mobile-top-bar.tsx` | Sticky phone header. `homeHref`, `parentOf(pathname) => Route \| null`, optional `trailing`. Hidden from `md` up. |
-| `TabBar` | `src/components/navigation/tab-bar.tsx` | Phone bottom tabs. Items are `NavItem` (`title`, `href`, `icon`, optional `match`, `exact`) or `{ title, icon, onSelect }`. |
+| `TabBar` | `src/components/navigation/tab-bar.tsx` | Phone bottom tabs (fixed). Items are `NavItem` (`title`, `href`, `icon`, optional `match`, `exact`) or `{ title, icon, onSelect }`. Pad page content by `3.75rem` + safe area on phones. |
 | `ScreenTitle`, `useScreenTitle`, `useScrolledPast` | `src/components/navigation/screen-title.tsx` | Registers the large title so the top bar can fade it in. `PageHeader` does this when `title` is a string. |
 | `PageTransition` | `src/components/navigation/page-transition.tsx` | Wrap route content from `template.tsx`. |
 | `NavItem`, `isActive` | `src/lib/navigation.ts` | Shared by `TabBar`. |
+
+Host example: `src/components/app-chrome.tsx` configures product tabs and is mounted by `scaffold/root-layout.tsx`. Edit that file when adopting the kit.
 
 ## Layout patterns — `@/components/patterns/layout`
 

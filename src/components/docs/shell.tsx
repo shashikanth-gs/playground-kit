@@ -1,5 +1,6 @@
 "use client"
 
+import type { Route } from "next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -9,7 +10,7 @@ import {
   BoxIcon,
   CodeIcon,
   LayersIcon,
-  MenuIcon,
+  LayoutTemplateIcon,
   SearchIcon,
   XIcon,
 } from "lucide-react"
@@ -20,27 +21,57 @@ import { ThemeMenu, ThemeSegmented } from "@/components/theme/theme-toggle"
 import { ResponsiveDialog } from "@/components/patterns/responsive-dialog"
 import { ListGroup, ListItem } from "@/components/patterns/collections"
 import { Tag } from "@/components/patterns/status"
+import { MobileTopBar } from "@/components/navigation/mobile-top-bar"
+import { TabBar } from "@/components/navigation/tab-bar"
 import { cn } from "@/lib/utils"
 import { asset, MAINTAINER, REPOSITORY } from "@/lib/docs/links"
 import type { CatalogEntry } from "@/lib/docs/catalog"
 
 const navigation = [
-  { href: "/", title: "Overview", icon: BookOpenIcon, number: "00" },
+  { href: "/" as Route, title: "Overview", tabTitle: "Overview", icon: BookOpenIcon, number: "00", exact: true },
   {
-    href: "/getting-started/",
+    href: "/getting-started/" as Route,
     title: "Getting started",
+    tabTitle: "Start",
     icon: CodeIcon,
     number: "01",
   },
   {
-    href: "/foundations/",
+    href: "/foundations/" as Route,
     title: "Foundations",
+    tabTitle: "Foundations",
     icon: LayersIcon,
     number: "02",
   },
-  { href: "/components/", title: "Components", icon: BoxIcon, number: "03" },
-  { href: "/patterns/", title: "Patterns", icon: LayersIcon, number: "04" },
+  {
+    href: "/components/" as Route,
+    title: "Components",
+    tabTitle: "Components",
+    icon: BoxIcon,
+    number: "03",
+  },
+  {
+    href: "/patterns/" as Route,
+    title: "Patterns",
+    tabTitle: "Patterns",
+    icon: LayoutTemplateIcon,
+    number: "04",
+  },
 ]
+
+const tabItems = navigation.map(({ href, tabTitle, icon, exact }) => ({
+  title: tabTitle,
+  href,
+  icon,
+  exact,
+}))
+
+function docsParentOf(pathname: string): Route | null {
+  if (pathname.startsWith("/components/") && pathname !== "/components/") {
+    return "/components/" as Route
+  }
+  return null
+}
 
 export function DocsShell({
   entries,
@@ -50,7 +81,6 @@ export function DocsShell({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
-  const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [query, setQuery] = useState("")
   useEffect(() => {
@@ -68,16 +98,30 @@ export function DocsShell({
       .toLowerCase()
       .includes(query.toLowerCase().trim()),
   )
+  const searchButton = (
+    <Button
+      variant="outline"
+      onClick={() => setSearchOpen(true)}
+      className="min-h-11 lg:min-h-8"
+      aria-label="Search documentation"
+    >
+      <SearchIcon />
+      <span className="hidden sm:inline">Search documentation</span>
+      <kbd className="ml-6 hidden font-mono text-[10px] text-muted-foreground md:inline">
+        ⌘ K
+      </kbd>
+    </Button>
+  )
   const nav = (
     <nav aria-label="Documentation" className="space-y-1">
-      {navigation.map(({ href, title, icon: Icon, number }) => {
-        const active =
-          href === "/" ? pathname === "/" : pathname.startsWith(href)
+      {navigation.map(({ href, title, icon: Icon, number, exact }) => {
+        const active = exact
+          ? pathname === href
+          : pathname === href || pathname.startsWith(href)
         return (
           <Link
             key={href}
             href={href}
-            onClick={() => setMenuOpen(false)}
             aria-current={active ? "page" : undefined}
             className={cn(
               "flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring",
@@ -104,20 +148,30 @@ export function DocsShell({
       >
         Skip to content
       </a>
+      <MobileTopBar
+        homeHref={"/" as Route}
+        homeLabel="Playground Kit home"
+        parentOf={docsParentOf}
+        trailing={
+          <>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="min-h-11 min-w-11"
+              aria-label="Search documentation"
+              onClick={() => setSearchOpen(true)}
+            >
+              <SearchIcon />
+            </Button>
+            <ThemeMenu className="min-h-11 min-w-11" />
+          </>
+        }
+      />
       <header
         data-chrome
-        className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b bg-background/95 px-4 backdrop-blur sm:px-6"
+        className="sticky top-0 z-30 hidden h-16 items-center justify-between gap-3 border-b bg-background/95 px-4 backdrop-blur sm:px-6 md:flex"
       >
         <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="min-h-11 min-w-11 lg:hidden"
-            aria-label="Open navigation"
-            onClick={() => setMenuOpen(true)}
-          >
-            <MenuIcon />
-          </Button>
           <Link
             href="/"
             aria-label="Playground Kit home"
@@ -130,18 +184,7 @@ export function DocsShell({
           </Link>
         </div>
         <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            onClick={() => setSearchOpen(true)}
-            className="min-h-11 lg:min-h-8"
-            aria-label="Search documentation"
-          >
-            <SearchIcon />
-            <span className="hidden sm:inline">Search documentation</span>
-            <kbd className="ml-6 hidden font-mono text-[10px] text-muted-foreground md:inline">
-              ⌘ K
-            </kbd>
-          </Button>
+          {searchButton}
           <div className="hidden lg:block">
             <ThemeSegmented />
           </div>
@@ -156,7 +199,7 @@ export function DocsShell({
           </Button>
         </div>
       </header>
-      <div className="mx-auto grid w-full max-w-[1600px] lg:grid-cols-[240px_minmax(0,1fr)]">
+      <div className="mx-auto grid w-full max-w-[1600px] pb-[calc(3.75rem+env(safe-area-inset-bottom))] md:pb-0 lg:grid-cols-[240px_minmax(0,1fr)]">
         <aside
           data-chrome
           className="sticky top-16 hidden h-[calc(100svh-4rem)] flex-col border-r px-5 py-8 lg:flex"
@@ -270,14 +313,7 @@ export function DocsShell({
           </footer>
         </main>
       </div>
-      <ResponsiveDialog
-        open={menuOpen}
-        onOpenChange={setMenuOpen}
-        title="Documentation"
-        description="Explore Playground Kit's components, foundations, and patterns."
-      >
-        {nav}
-      </ResponsiveDialog>
+      <TabBar items={tabItems} />
       <ResponsiveDialog
         open={searchOpen}
         onOpenChange={setSearchOpen}
