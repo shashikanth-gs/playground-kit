@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "description": "The http2xx source design system and its interactive reference catalog.",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",
     "build": "npm run kit && next build",

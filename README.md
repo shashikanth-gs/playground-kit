@@ -76,7 +76,9 @@ The archive excludes the catalog, generated output, Git metadata, dependencies, 
 
 The remote name contains `desing`; the base path preserves that exact spelling.
 
-Enable **Settings → Pages → GitHub Actions**. `.github/workflows/pages.yml` validates and builds pull requests, then publishes main to GitHub Pages. A private repository needs an eligible paid GitHub plan for Pages. Keep the source repository private.
+Enable **Settings → Pages → GitHub Actions**. `.github/workflows/pages.yml` validates and builds pull requests, then publishes main to GitHub Pages once Pages is enabled. Until then it uploads the verified static artifact and skips deployment. A private repository needs an eligible paid GitHub plan for Pages. Keep the source repository private.
+
+The initial attempt to enable Pages returned HTTP 422: “Your current plan does not support GitHub Pages for this repository.” Upgrade the personal account to an eligible plan (such as GitHub Pro), enable Pages with GitHub Actions in repository settings, and manually run **Validate and publish catalog**. The prepared URL above becomes live after that deployment succeeds.
 
 After a repository rename, update the workflow’s `NEXT_PUBLIC_BASE_PATH`, `src/lib/docs/links.ts`, and documented URLs. Do not configure a `CNAME` unless adding a verified custom domain.
 
