@@ -78,34 +78,33 @@ The archive excludes the docs app, generated output, Git metadata, installed pac
 
 Copied components do not receive upstream fixes automatically. Review and copy updates into each consuming project deliberately; a shared package or source-sync workflow can be added separately.
 
-## Cloudflare Pages
+## Cloudflare production (`design.http2xx.io`)
 
-This catalog intentionally produces static assets in `out/`. Use the Pages static-export settings below, or Workers Static Assets in the next section. The regular Next.js / OpenNext adapter targets a server deployment and expects `.next/standalone`; an OpenNext error about `.next/standalone/.next/server/pages-manifest.json` indicates that the server adapter is being run against the static export. Use the static configuration instead of creating a placeholder manifest or switching this catalog to standalone output.
+This catalog is a **fully static** Next.js export (`output: "export"` → `out/`). Prefer **Cloudflare Pages** with that folder as the build output. Do **not** run OpenNext, vinext, or any adapter that expects `.next/standalone` — that path fails with `ENOENT .../pages-manifest.json` against this export.
 
-Connect **[shashikanth-gs/playground-kit](https://github.com/shashikanth-gs/playground-kit)** using Cloudflare Pages Git integration.
+### Preferred: Cloudflare Pages
+
+Connect **[shashikanth-gs/playground-kit](https://github.com/shashikanth-gs/playground-kit)** with Pages Git integration.
 
 | Setting | Value |
 | --- | --- |
-| Project name | `playground-kit` |
+| Project name | `playground-kit` (or the project that owns `design.http2xx.io`) |
 | Framework preset | Next.js (Static HTML Export) |
 | Production branch | `main` |
 | Build command | `npm test && npm run build` |
 | Output directory | `out` |
+| Deploy command | **Leave empty** (Pages uploads `out/` itself) |
 | Root directory | Leave blank |
-| Node.js | 22 or newer; set `NODE_VERSION=22` explicitly |
+| Node.js | 22+; set `NODE_VERSION=22` |
 | `NEXT_PUBLIC_BASE_PATH` | Leave unset / empty |
 
-Override the preset's default build command so the archive and notices are generated. Pushes to main rebuild production; other branches can create previews.
-
-After the first deployment, add your chosen hostname in the project's Custom domains settings, then follow its DNS instructions. **`playground.shashikanth.me`** is a suitable option; the domain remains your choice and is not configured by this repository. The source repository's visibility is separate from the public catalog and kit download.
+After a successful production deployment, confirm the custom domain **`design.http2xx.io`** is attached to this Pages project. Retry any failed production deployment once these settings are saved.
 
 See [Cloudflare's static Next.js guide](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/) and [custom-domain guide](https://developers.cloudflare.com/pages/configuration/custom-domains/).
 
-## Cloudflare Workers Static Assets
+### Alternative: Workers Static Assets
 
-Workers can serve this same static catalog using **Workers Static Assets**, without OpenNext. `wrangler.jsonc` points to the existing `out/` export; no Worker entry-point script or Next.js server is required.
-
-In the Worker project's **Settings → Build** configuration, use:
+If the hostname already lives on a **Workers** project (Build + Deploy commands), keep serving `out/` as static assets — still no OpenNext.
 
 | Setting | Value |
 | --- | --- |
@@ -115,11 +114,11 @@ In the Worker project's **Settings → Build** configuration, use:
 | Node.js | `NODE_VERSION=22` |
 | `NEXT_PUBLIC_BASE_PATH` | Leave unset / empty |
 
-Existing settings of `npm run build` and `npx wrangler deploy` also work: the deploy script runs the same Wrangler command. Without a Wrangler config, Wrangler can auto-detect Next.js and set up OpenNext. The committed static-assets config prevents that automatic framework setup.
+`wrangler.jsonc` commits an assets-only Worker (`assets.directory: ./out`, no `main`). That stops Wrangler from auto-detecting Next.js and running `@opennextjs/cloudflare migrate`. Prefer `npm run deploy:cloudflare` over bare `npx wrangler deploy` so the guard in `scripts/cloudflare-static.mjs` runs first.
 
-Make sure the Worker project name matches `name` in `wrangler.jsonc` (`playground-kit` by default), then deploy the latest `main` commit. This config includes real 404 handling for unknown routes, and directory-style HTML routes that match the Next.js export. Add your chosen hostname through the Worker's Custom domains settings after the first successful deployment.
+Worker name must match `name` in `wrangler.jsonc` (`playground-kit`). Attach **`design.http2xx.io`** as a Worker custom domain after the first green deploy, then **Retry deployment** for the latest `main` commit.
 
-For local packaging validation, after `npm run build`, run `npm run check:cloudflare`. It runs Wrangler's dry run and does not publish anything. Actual deployment requires Cloudflare authentication, which Workers Git builds supply through the configured project.
+Local check (no publish): `npm run build && npm run check:cloudflare`.
 
 See [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/get-started/) and [Workers build configuration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/).
 

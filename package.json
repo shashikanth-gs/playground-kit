@@ -19,8 +19,8 @@
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",
     "build": "npm run kit && next build",
-    "deploy:cloudflare": "wrangler deploy",
-    "check:cloudflare": "wrangler deploy --dry-run --outdir artifacts/cloudflare-dry-run",
+    "deploy:cloudflare": "node scripts/cloudflare-static.mjs deploy",
+    "check:cloudflare": "node scripts/cloudflare-static.mjs check",
     "typecheck": "tsc --noEmit",
     "kit": "node scripts/package-kit.mjs",
     "preview": "node scripts/preview.mjs",
