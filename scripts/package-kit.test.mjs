@@ -8,7 +8,7 @@ test("ships a complete source kit without the docs app or workspace data", () =>
     encoding: "utf8",
   })
   assert.equal(packed.status, 0, packed.stderr)
-  const archive = "artifacts/http2xx-design-system.tar.gz"
+  const archive = "artifacts/playground-kit.tar.gz"
   const listing = spawnSync("tar", ["-tzf", archive], { encoding: "utf8" })
   assert.equal(listing.status, 0, listing.stderr)
   for (const file of [
@@ -32,7 +32,7 @@ test("ships a complete source kit without the docs app or workspace data", () =>
     "licenses/spacegrotesk-OFL.txt",
   ]) {
     assert.ok(
-      listing.stdout.includes(`http2xx-design-system/${file}`),
+      listing.stdout.includes(`playground-kit/${file}`),
       `missing ${file}`,
     )
   }
@@ -40,11 +40,11 @@ test("ships a complete source kit without the docs app or workspace data", () =>
   assert.doesNotMatch(listing.stdout, /\/\.env/)
   assert.deepEqual(
     fs.readFileSync(archive),
-    fs.readFileSync("public/downloads/http2xx-design-system.tar.gz"),
+    fs.readFileSync("public/downloads/playground-kit.tar.gz"),
   )
   assert.deepEqual(
     fs.readFileSync("src/styles/globals.css"),
-    fs.readFileSync("artifacts/http2xx-design-system/src/styles/globals.css"),
+    fs.readFileSync("artifacts/playground-kit/src/styles/globals.css"),
   )
   for (const file of [
     "LICENSE",
@@ -54,7 +54,7 @@ test("ships a complete source kit without the docs app or workspace data", () =>
   ]) {
     assert.deepEqual(
       fs.readFileSync(file),
-      fs.readFileSync(`artifacts/http2xx-design-system/${file}`),
+      fs.readFileSync(`artifacts/playground-kit/${file}`),
       `kit changed ${file}`,
     )
     assert.deepEqual(

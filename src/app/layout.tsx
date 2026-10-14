@@ -18,16 +18,15 @@ const heading = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: `http2xx Design System · ${MAINTAINER.name}`,
-    template: "%s · http2xx",
+    default: `Playground Kit · ${MAINTAINER.name}`,
+    template: "%s · Playground Kit",
   },
   authors: [{ name: MAINTAINER.name, url: MAINTAINER.website }],
   creator: MAINTAINER.name,
   description:
-    "The http2xx design system, created and maintained by Shashi Kanth G S. Explore the foundations, components, and patterns for building personal tools.",
+    "UI components for interactive technical playgrounds. Created and maintained by Shashi Kanth G S, built on shadcn/ui and Base UI.",
   icons: {
-    icon: asset("/brand/favicon.svg"),
-    apple: asset("/brand/apple-touch-icon.png"),
+    icon: asset("/brand/playground-kit.svg"),
   },
 }
 

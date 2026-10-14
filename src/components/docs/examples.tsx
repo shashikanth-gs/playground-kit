@@ -47,6 +47,62 @@ import { SegmentedControl } from "@/components/patterns/segmented-control"
 import { FilterChips } from "@/components/patterns/filter-chips"
 import { ThemeSegmented } from "@/components/theme/theme-toggle"
 
+export function ConsolePreview() {
+  return (
+    <div className="overflow-hidden rounded-xl border bg-card shadow-elevated">
+      <div className="flex items-center justify-between border-b px-5 py-3">
+        <span className="font-mono text-xs">playground-kit / workspace</span>
+        <Tag>Example</Tag>
+      </div>
+      <div className="space-y-5 p-5">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <Eyebrow>Preview / log console</Eyebrow>
+            <h3 className="mt-2 font-heading text-xl font-semibold">
+              Watch the output.
+            </h3>
+          </div>
+          <Pill tone="neutral" dot>
+            Sample
+          </Pill>
+        </div>
+        <LogStream
+          title="Illustrative output"
+          lines={[
+            {
+              time: "12:00:01",
+              level: "info",
+              source: "workspace",
+              message: "UI foundations initialized",
+            },
+            {
+              time: "12:00:02",
+              level: "debug",
+              source: "preview",
+              message: "Code, logs, status, and panels",
+            },
+            {
+              time: "12:00:03",
+              level: "success",
+              source: "example",
+              message: "Ready to compose your playground",
+            },
+          ]}
+        />
+        <ValueField
+          label="Example endpoint"
+          value="https://example.com/api/playground"
+          hint="Try copying"
+        />
+        <p className="text-xs leading-6 text-muted-foreground">
+          A composition of the existing LogStream, Pill, and ValueField. Connect
+          your own data source for live output.
+        </p>
+      </div>
+    </div>
+  )
+}
+
 export function ToolPreview() {
   const [enabled, setEnabled] = useState(true)
   return (

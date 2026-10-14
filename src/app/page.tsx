@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Eyebrow, Tag } from "@/components/patterns/status"
 import { SectionHeader } from "@/components/patterns/layout"
 import { cardSurface } from "@/components/patterns/card-surface"
-import { ToolPreview } from "@/components/docs/examples"
+import { ConsolePreview } from "@/components/docs/examples"
 import { CodeBlock } from "@/components/patterns/code"
 import { getCatalog } from "@/lib/docs/catalog"
 import { asset, MAINTAINER } from "@/lib/docs/links"
@@ -48,22 +48,23 @@ export default function Overview() {
   return (
     <div className="mx-auto max-w-6xl">
       <div className="flex items-center justify-between border-b pb-5">
-        <Eyebrow code="200">http2xx / Design system</Eyebrow>
+        <Eyebrow code="200">Playground Kit / Technical UI</Eyebrow>
         <Tag>v0.1.0</Tag>
       </div>
       <section className="relative grid items-center gap-12 py-14 xl:grid-cols-[1.1fr_1fr] xl:py-20">
         <div>
           <p className="mb-6 font-mono text-xs tracking-widest text-muted-foreground uppercase">
-            A foundation for personal software
+            Components for interactive technical playgrounds
           </p>
           <h1 className="font-heading text-5xl leading-[1.06] font-semibold tracking-[-0.045em] sm:text-6xl xl:text-7xl">
-            One system.
+            Build a place{" "}
             <br />
-            <span className="text-muted-foreground">Every tool.</span>
+            <span className="text-muted-foreground">to experiment.</span>
           </h1>
           <p className="mt-7 max-w-md text-base leading-7 text-muted-foreground">
-            The components, tokens, and patterns behind http2xx.io. A shared
-            visual language for everything you build next.
+            A shared UI foundation for technical demos, developer tools, and
+            hands-on labs. Compose code, logs, status, and responsive panels
+            into a workspace people can explore.
           </p>
           <p className="mt-3 text-xs leading-6 text-muted-foreground">
             Built on{" "}
@@ -122,9 +123,9 @@ export default function Overview() {
           </p>
         </div>
         <div className="min-w-0">
-          <ToolPreview />
+          <ConsolePreview />
           <p className="mt-4 text-center font-mono text-[10px] tracking-wider text-subtle-foreground uppercase">
-            Real components. Illustrative data. Try the controls.
+            Existing kit components. Illustrative output. No live connection.
           </p>
         </div>
       </section>
@@ -150,13 +151,14 @@ export default function Overview() {
         <div>
           <SectionHeader
             eyebrow="01 / The foundation"
-            title="Familiar foundations. A distinct system."
-            description="Extracted from the http2xx.io app, then organized into a reusable source kit. The brand tokens and product patterns are http2xx’s own; the underlying component approach is shadcn/ui with Base UI."
+            title="General controls. Technical compositions."
+            description="shadcn/ui supplies the styled primitives; Base UI supplies interaction behavior; Tailwind CSS supplies the styling utilities. Playground Kit adds a shared visual language and compositions for technical interfaces."
           />
           <p className="mt-5 text-sm leading-7 text-muted-foreground">
-            This is a copy-and-compose kit, rather than a published npm library.
-            You own the files in each tool. Keep the visual foundation
-            consistent and shape the screens around the job.
+            The first foundations were extracted from http2xx.io. Today, the kit
+            includes code blocks, log streams, copyable values, metrics,
+            diagrams, and responsive layouts. Copy the source and connect it to
+            your own application or execution backend.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs">
             <a
@@ -204,7 +206,7 @@ export default function Overview() {
       <section className="space-y-6 border-t pt-12">
         <SectionHeader
           eyebrow="02 / Explore the system"
-          title="From tokens to a working screen."
+          title="From tokens to a technical workspace."
         />
         <div className="grid gap-4 md:grid-cols-3">
           {[
@@ -218,13 +220,13 @@ export default function Overview() {
               title: "Components",
               href: "/components/",
               icon: BoxIcon,
-              text: "Interactive examples and the full source contract for every module.",
+              text: "Try the existing controls, code views, log output, and source contracts.",
             },
             {
               title: "Patterns",
               href: "/patterns/",
               icon: CodeIcon,
-              text: "Headers, metrics, lists, dialogs, and the building blocks of a whole app.",
+              text: "Compose metrics, records, workflows, and phone-aware overlays into your workspace.",
             },
           ].map(({ title, href, icon: Icon, text }) => (
             <Link key={href} href={href} className={`${cardSurface} gap-6 p-6`}>
@@ -240,11 +242,47 @@ export default function Overview() {
           ))}
         </div>
       </section>
+      <section className="mt-14 space-y-6 border-t pt-12">
+        <SectionHeader
+          eyebrow="03 / The direction"
+          title="Terminals. Live screens. Consoles."
+          description="The next layer is dedicated UI for interactive technical playgrounds. These component families are planned; the current catalog shows the foundations available today."
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              title: "Terminal sessions",
+              text: "Command input, history, scrollback, and execution state.",
+              tag: "Planned",
+            },
+            {
+              title: "Live consoles & screens",
+              text: "Streaming output, running previews, connection state, and session controls.",
+              tag: "Planned",
+            },
+            {
+              title: "Inspectors & workspaces",
+              text: "Request and event inspection, structured data, and resizable workspace panels.",
+              tag: "Planned",
+            },
+          ].map((family) => (
+            <div key={family.title} className="space-y-3">
+              <Tag>{family.tag}</Tag>
+              <h3 className="font-heading text-lg font-medium">
+                {family.title}
+              </h3>
+              <p className="text-sm leading-7 text-muted-foreground">
+                {family.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
       <section className="mt-14 grid gap-7 rounded-xl border bg-sunken p-6 sm:p-8 xl:grid-cols-2">
         <div>
           <Eyebrow code="→">Make it yours</Eyebrow>
           <h2 className="mt-3 font-heading text-2xl font-semibold tracking-tight">
-            Your next tool starts here.
+            Your next playground starts here.
           </h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">
             Take the source, install its dependencies, and compose a screen. The

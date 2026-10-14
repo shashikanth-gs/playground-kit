@@ -1,5 +1,4 @@
-export const REPOSITORY =
-  "https://github.com/shashikanth-gs/http2xx.io-desing-system"
+export const REPOSITORY = "https://github.com/shashikanth-gs/playground-kit"
 export const MAINTAINER = {
   name: "Shashi Kanth G S",
   website: "https://shashikanth.me",

@@ -1,5 +1,5 @@
 {
-  "name": "@http2xx/design-system",
+  "name": "playground-kit",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shashikanth-gs/http2xx.io-desing-system.git"
+    "url": "git+https://github.com/shashikanth-gs/playground-kit.git"
   },
-  "homepage": "https://github.com/shashikanth-gs/http2xx.io-desing-system#readme",
-  "description": "The http2xx design system, created and maintained by Shashi Kanth G S, with reusable source and an interactive reference catalog.",
+  "homepage": "https://github.com/shashikanth-gs/playground-kit#readme",
+  "description": "UI components for interactive technical playgrounds. Created and maintained by Shashi Kanth G S, built on shadcn/ui and Base UI.",
   "engines": {
     "node": ">=22"
   },

@@ -17,9 +17,9 @@ Tone values: `brand | success | warning | danger | info | neutral` from `@/lib/t
 | Export | File | Use |
 | --- | --- | --- |
 | `Logomark` | `src/components/brand/logo.tsx` | Mark only. `animated` pulses the status dot. `title` sets an accessible name. |
-| `Wordmark` | same | The "http2xx" wordmark. Replace for a new product. |
+| `Wordmark` | same | The "Playground Kit" wordmark. Replace for a new product. |
 | `Logo` | same | Mark plus wordmark. |
-| SVG kit | `public/brand/` | `mark-*.svg`, `lockup-*.svg`, `app-icon*.svg`, `og-banner.png`. |
+| SVG kit | `public/brand/` | `playground-kit.svg`, plus legacy http2xx `mark-*.svg`, `lockup-*.svg`, `app-icon*.svg`, `og-banner.png`. |
 
 ## Navigation chrome
 

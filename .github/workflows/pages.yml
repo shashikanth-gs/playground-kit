@@ -22,7 +22,7 @@ jobs:
     outputs:
       pages_enabled: ${{ steps.pages.outputs.enabled }}
     env:
-      NEXT_PUBLIC_BASE_PATH: /http2xx.io-desing-system
+      NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

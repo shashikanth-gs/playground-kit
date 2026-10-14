@@ -120,12 +120,12 @@ export function DocsShell({
           </Button>
           <Link
             href="/"
-            aria-label="http2xx design system home"
+            aria-label="Playground Kit home"
             className="flex items-center gap-3"
           >
             <Logo />
             <span className="hidden border-l pl-3 text-xs text-muted-foreground sm:inline">
-              Design system
+              Technical UI
             </span>
           </Link>
         </div>
@@ -162,7 +162,7 @@ export function DocsShell({
           className="sticky top-16 hidden h-[calc(100svh-4rem)] flex-col border-r px-5 py-8 lg:flex"
         >
           <div className="mb-5 px-3 font-mono text-[10px] tracking-widest text-subtle-foreground uppercase">
-            The reference kit
+            Playground Kit
           </div>
           {nav}
           <div className="mt-8 space-y-3 border-t px-3 pt-6">
@@ -194,7 +194,7 @@ export function DocsShell({
           <div className="mt-auto space-y-3 px-3">
             <Tag>v0.1.0</Tag>
             <p className="text-xs leading-relaxed text-muted-foreground">
-              Built for the tools you build.
+              Built for technical playgrounds.
               <br />
               Maintained by{" "}
               <a
@@ -274,7 +274,7 @@ export function DocsShell({
         open={menuOpen}
         onOpenChange={setMenuOpen}
         title="Documentation"
-        description="Explore the http2xx design system."
+        description="Explore Playground Kit's components, foundations, and patterns."
       >
         {nav}
       </ResponsiveDialog>

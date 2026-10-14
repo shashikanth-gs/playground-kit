@@ -1,6 +1,6 @@
-# Agent guide — http2xx design system
+# Agent guide — Playground Kit
 
-This source kit is extracted from the http2xx.io app. In the full repository, run `npm run kit` and copy from the generated kit when building another app; the reference catalog in `src/app/`, `src/components/docs/`, and `src/lib/docs/` is excluded. In an extracted download, use the provided source directly. Do not restyle primitives, invent colours, or recreate a button, dialog, or list that already exists here.
+Playground Kit provides UI foundations for interactive technical playgrounds. Its original visual foundation was extracted from http2xx.io. In the full repository, run `npm run kit` and copy from the generated kit when building another app; the reference catalog in `src/app/`, `src/components/docs/`, and `src/lib/docs/` is excluded. In an extracted download, use the provided source directly. Do not restyle primitives, invent colours, or recreate a button, dialog, or list that already exists here.
 
 Read this file first, then `COMPONENTS.md` for the inventory. Open the component file before using it; props in the source are the contract.
 
@@ -26,8 +26,8 @@ Host app: Next.js 16, React 19, Tailwind CSS 4, TypeScript. Path alias `@/*` →
 3. Replace the root layout with `scaffold/root-layout.tsx` (edit title, description, and `themeColor` for the product).
 4. Copy `scaffold/template.tsx` to `src/app/template.tsx`.
 5. Import the stylesheet once, from the root layout: `import "@/styles/globals.css"`. Delete any other global CSS so tokens are not duplicated.
-6. Rename `THEME_STORAGE_KEY` in `src/components/theme/theme-script.tsx` to a key unique to this product (for example `acme-theme`). The kit value is `http2xx-design-system-theme`.
-7. Replace the logomark if this is not an http2xx product. `Logo`, `Logomark`, and `Wordmark` live in `src/components/brand/logo.tsx`. The mobile top bar links home with `aria-label="http2xx.io home"` — change that label with the brand.
+6. Rename `THEME_STORAGE_KEY` in `src/components/theme/theme-script.tsx` to a key unique to this product (for example `acme-theme`). The kit value is `playground-kit-theme`.
+7. Replace the logomark for other products. `Logo`, `Logomark`, and `Wordmark` live in `src/components/brand/logo.tsx`. The mobile top bar accepts `homeLabel` and `logo` — set those for the host product.
 8. Preserve `LICENSE`, `BRAND.md`, `THIRD_PARTY_NOTICES.md`, and `licenses/` with redistributed source. Original code is MIT-licensed; upstream components and fonts retain their own licenses. The reference brand artwork has separate terms in `BRAND.md`.
 
 `components.json` is the shadcn config (`style: base-nova`, Base UI, lucide). Adding a missing primitive later:

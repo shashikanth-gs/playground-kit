@@ -1,9 +1,9 @@
 # Catalog publication
 
-The owner authorized a **public catalog with a private source repository**. The catalog's component source and reusable kit download are public. Do not add private content, secrets, tokens, or environment files to either.
+Playground Kit is prepared for Cloudflare Pages Git integration. Connect `shashikanth-gs/playground-kit`, set production branch `main`, build command `npm test && npm run build`, output directory `out`, and Node.js 22. Leave `NEXT_PUBLIC_BASE_PATH` unset for Cloudflare and custom domains.
 
-Enable Settings → Pages → Build and deployment → GitHub Actions. Private repository Pages requires an eligible paid plan. The intended URL is https://shashikanth-gs.github.io/http2xx.io-desing-system/ (the remote spelling is intentional).
+The owner authorized a public catalog, source examples, and downloadable kit. Repository visibility is a separate choice. Do not add secrets or private product data to the published assets.
 
-Publishing runs on main and manual dispatch once Pages is enabled with the Actions publishing source. Before that, the workflow validates and uploads the static artifact, then skips deployment. Pull requests validate and upload a build but never deploy. Keep the source repository private; making it public is not a fallback for a billing restriction.
+The optional GitHub Pages workflow validates pull requests and main pushes. It uploads a verified static artifact and only deploys when GitHub Pages is enabled with the Actions publishing source. Its base path is derived from the repository name. The prepared GitHub Pages URL is https://shashikanth-gs.github.io/playground-kit/.
 
-If the repository is renamed, update NEXT_PUBLIC_BASE_PATH in pages.yml, repository links in src/lib/docs/links.ts, and documented URLs together.
+Cloudflare's Git integration deploys separately from this GitHub Pages workflow. A push to main updates Cloudflare production; other branches receive previews when enabled. The catalog and download update together. Apps that copied the source do not update automatically.

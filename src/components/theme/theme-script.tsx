@@ -1,4 +1,4 @@
-export const THEME_STORAGE_KEY = "http2xx-design-system-theme"
+export const THEME_STORAGE_KEY = "playground-kit-theme"
 
 /**
  * Runs synchronously in <head> before first paint. Resolves the stored

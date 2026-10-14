@@ -17,17 +17,17 @@ const steps = [
   {
     title: "02 / Copy the source kit",
     body: "Download and extract the kit, then copy only its components, hooks, libraries, and stylesheet. The catalog itself is excluded from the download.",
-    code: "tar -xzf http2xx-design-system.tar.gz\ncp -R http2xx-design-system/src/. my-tool/src/\ncp -R http2xx-design-system/public/brand my-tool/public/\ncp http2xx-design-system/components.json my-tool/",
+    code: "tar -xzf playground-kit.tar.gz\ncp -R playground-kit/src/. my-tool/src/\ncp -R playground-kit/public/brand my-tool/public/\ncp playground-kit/components.json my-tool/",
   },
   {
     title: "03 / Install the shared dependencies",
     body: "Run the bundled dependency helper in your host app. It adds the kit’s dependencies to the existing package.json without replacing the host scripts. It refuses incompatible or too-old versions.",
-    code: "node http2xx-design-system/install-dependencies.mjs --target ./my-tool\ncd my-tool\nnpm install",
+    code: "node playground-kit/install-dependencies.mjs --target ./my-tool\ncd my-tool\nnpm install",
   },
   {
     title: "04 / Mount the app shell",
     body: "Use the scaffold root layout and template. The layout includes all three fonts, ThemeScript, ThemeProvider, TooltipProvider, and Toaster. Import globals.css once; remove your host’s duplicate global stylesheet import.",
-    code: "cp ../http2xx-design-system/scaffold/root-layout.tsx src/app/layout.tsx\ncp ../http2xx-design-system/scaffold/template.tsx src/app/template.tsx",
+    code: "cp ../playground-kit/scaffold/root-layout.tsx src/app/layout.tsx\ncp ../playground-kit/scaffold/template.tsx src/app/template.tsx",
   },
   {
     title: "05 / Give the tool its identity",
@@ -47,10 +47,7 @@ export default function GettingStarted() {
           <Button
             nativeButton={false}
             render={
-              <a
-                href={asset("/downloads/http2xx-design-system.tar.gz")}
-                download
-              />
+              <a href={asset("/downloads/playground-kit.tar.gz")} download />
             }
           >
             <ArrowDownToLineIcon />
@@ -58,13 +55,11 @@ export default function GettingStarted() {
           </Button>
         }
       />
-      <Callout
-        tone="info"
-        title="The repository and the catalog have different audiences."
-      >
-        The repository is private. This GitHub Pages catalog, source examples,
-        and kit download are public. Do not add secrets or private product data
-        to the catalog.
+      <Callout tone="info" title="Connect the UI to your own application.">
+        The kit supplies UI components and compositions. Connect your own data
+        source, session service, or execution backend for live behavior.
+        Terminal sessions, live screens, and inspectors are planned component
+        families.
       </Callout>
       <div className="mt-8 space-y-6">
         {steps.map((step) => (
@@ -94,7 +89,7 @@ export default function GettingStarted() {
           variant="outline"
           render={<a href={REPOSITORY} target="_blank" rel="noreferrer" />}
         >
-          Private source repository <ArrowUpRightIcon />
+          Source repository <ArrowUpRightIcon />
         </Button>
       </section>
       <section className="mt-10 space-y-4">
@@ -105,8 +100,8 @@ export default function GettingStarted() {
           Original code is MIT-licensed. The download preserves the licenses for
           shadcn/ui, Base UI, other shared dependencies, and the fonts. Keep
           LICENSE, THIRD_PARTY_NOTICES.md, and the licenses directory with any
-          redistributed kit. Replace the http2xx reference identity for other
-          products; its artwork is covered separately by BRAND.md.
+          redistributed kit. Replace the reference identity for other products;
+          its artwork is covered separately by BRAND.md.
         </p>
         <div className="flex flex-wrap gap-4 text-sm">
           <a
