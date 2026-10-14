@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+artifacts/
+public/downloads/
+.DS_Store
+.playwright-mcp/
+*.tsbuildinfo
+.env*
+!.env.example
