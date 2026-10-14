@@ -80,6 +80,8 @@ Copied components do not receive upstream fixes automatically. Review and copy u
 
 ## Cloudflare Pages
 
+This catalog intentionally produces static assets in `out/`. Use the Pages static-export settings below, or Workers Static Assets in the next section. The regular Next.js / OpenNext adapter targets a server deployment and expects `.next/standalone`; an OpenNext error about `.next/standalone/.next/server/pages-manifest.json` indicates that the server adapter is being run against the static export. Use the static configuration instead of creating a placeholder manifest or switching this catalog to standalone output.
+
 Connect **[shashikanth-gs/playground-kit](https://github.com/shashikanth-gs/playground-kit)** using Cloudflare Pages Git integration.
 
 | Setting | Value |
@@ -98,6 +100,36 @@ Override the preset's default build command so the archive and notices are gener
 After the first deployment, add your chosen hostname in the project's Custom domains settings, then follow its DNS instructions. **`playground.shashikanth.me`** is a suitable option; the domain remains your choice and is not configured by this repository. The source repository's visibility is separate from the public catalog and kit download.
 
 See [Cloudflare's static Next.js guide](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/) and [custom-domain guide](https://developers.cloudflare.com/pages/configuration/custom-domains/).
+
+## Cloudflare Workers Static Assets
+
+Workers can serve this same static catalog using **Workers Static Assets**, without OpenNext. `wrangler.jsonc` points to the existing `out/` export; no Worker entry-point script or Next.js server is required.
+
+In the Worker project's **Settings → Build** configuration, use:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm test && npm run build` |
+| Deploy command | `npm run deploy:cloudflare` |
+| Root directory | `/` |
+| Node.js | `NODE_VERSION=22` |
+| `NEXT_PUBLIC_BASE_PATH` | Leave unset / empty |
+
+Existing settings of `npm run build` and `npx wrangler deploy` also work: the deploy script runs the same Wrangler command. Without a Wrangler config, Wrangler can auto-detect Next.js and set up OpenNext. The committed static-assets config prevents that automatic framework setup.
+
+Make sure the Worker project name matches `name` in `wrangler.jsonc` (`playground-kit` by default), then deploy the latest `main` commit. This config includes real 404 handling for unknown routes, and directory-style HTML routes that match the Next.js export. Add your chosen hostname through the Worker's Custom domains settings after the first successful deployment.
+
+For local packaging validation, after `npm run build`, run `npm run check:cloudflare`. It runs Wrangler's dry run and does not publish anything. Actual deployment requires Cloudflare authentication, which Workers Git builds supply through the configured project.
+
+See [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/get-started/) and [Workers build configuration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/).
+
+## npm naming and release direction
+
+The recommended future package name is **`@shashikanth-gs/playground-kit`**, provided `shashikanth-gs` is your npm user or an organization scope you control. A personal scope makes ownership explicit and avoids depending on the globally shared unscoped `playground-kit` name. The originating http2xx.io app belongs in provenance notes, not in the npm namespace. The GitHub repository and catalog can continue to use the simple `playground-kit` name.
+
+This repository currently ships a copy-and-compose source kit and keeps the catalog's package marked `private: true`. It is **not yet a publishable importable npm library**: its `@/` imports resolve through the consumer's source alias. A release needs a separate package boundary, internal import resolution, documented exports, type declarations, styling integration, and peer dependencies. Changing the name or removing `private` alone is not enough. No npm release is published by the catalog's deployment scripts.
+
+Public scoped packages use `npm publish --access public` from the prepared release package; the scope must belong to your npm account or organization. See [npm scopes](https://docs.npmjs.com/about-scopes/) and [publishing public scoped packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/).
 
 ## Other hosting options
 

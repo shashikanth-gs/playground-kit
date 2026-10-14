@@ -19,6 +19,8 @@
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",
     "build": "npm run kit && next build",
+    "deploy:cloudflare": "wrangler deploy",
+    "check:cloudflare": "wrangler deploy --dry-run --outdir artifacts/cloudflare-dry-run",
     "typecheck": "tsc --noEmit",
     "kit": "node scripts/package-kit.mjs",
     "preview": "node scripts/preview.mjs",
@@ -44,6 +46,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.151.0"
   }
 }
