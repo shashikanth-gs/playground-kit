@@ -78,50 +78,6 @@ The archive excludes the docs app, generated output, Git metadata, installed pac
 
 Copied components do not receive upstream fixes automatically. Review and copy updates into each consuming project deliberately; a shared package or source-sync workflow can be added separately.
 
-## Cloudflare production (`design.http2xx.io`)
-
-This catalog is a **fully static** Next.js export (`output: "export"` → `out/`). Prefer **Cloudflare Pages** with that folder as the build output. Do **not** run OpenNext, vinext, or any adapter that expects `.next/standalone` — that path fails with `ENOENT .../pages-manifest.json` against this export.
-
-### Preferred: Cloudflare Pages
-
-Connect **[shashikanth-gs/playground-kit](https://github.com/shashikanth-gs/playground-kit)** with Pages Git integration.
-
-| Setting | Value |
-| --- | --- |
-| Project name | `playground-kit` (or the project that owns `design.http2xx.io`) |
-| Framework preset | Next.js (Static HTML Export) |
-| Production branch | `main` |
-| Build command | `npm test && npm run build` |
-| Output directory | `out` |
-| Deploy command | **Leave empty** (Pages uploads `out/` itself) |
-| Root directory | Leave blank |
-| Node.js | 22+; set `NODE_VERSION=22` |
-| `NEXT_PUBLIC_BASE_PATH` | Leave unset / empty |
-
-After a successful production deployment, confirm the custom domain **`design.http2xx.io`** is attached to this Pages project. Retry any failed production deployment once these settings are saved.
-
-See [Cloudflare's static Next.js guide](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/) and [custom-domain guide](https://developers.cloudflare.com/pages/configuration/custom-domains/).
-
-### Alternative: Workers Static Assets
-
-If the hostname already lives on a **Workers** project (Build + Deploy commands), keep serving `out/` as static assets — still no OpenNext.
-
-| Setting | Value |
-| --- | --- |
-| Build command | `npm test && npm run build` |
-| Deploy command | `npm run deploy:cloudflare` |
-| Root directory | `/` |
-| Node.js | `NODE_VERSION=22` |
-| `NEXT_PUBLIC_BASE_PATH` | Leave unset / empty |
-
-`wrangler.jsonc` commits an assets-only Worker (`assets.directory: ./out`, no `main`). That stops Wrangler from auto-detecting Next.js and running `@opennextjs/cloudflare migrate`. Prefer `npm run deploy:cloudflare` over bare `npx wrangler deploy` so the guard in `scripts/cloudflare-static.mjs` runs first.
-
-Worker name must match `name` in `wrangler.jsonc` (`playground-kit`). Attach **`design.http2xx.io`** as a Worker custom domain after the first green deploy, then **Retry deployment** for the latest `main` commit.
-
-Local check (no publish): `npm run build && npm run check:cloudflare`.
-
-See [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/get-started/) and [Workers build configuration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/).
-
 ## npm naming and release direction
 
 The recommended future package name is **`@shashikanth-gs/playground-kit`**, provided `shashikanth-gs` is your npm user or an organization scope you control. A personal scope makes ownership explicit and avoids depending on the globally shared unscoped `playground-kit` name. The originating http2xx.io app belongs in provenance notes, not in the npm namespace. The GitHub repository and catalog can continue to use the simple `playground-kit` name.
@@ -130,11 +86,13 @@ This repository currently ships a copy-and-compose source kit and keeps the cata
 
 Public scoped packages use `npm publish --access public` from the prepared release package; the scope must belong to your npm account or organization. See [npm scopes](https://docs.npmjs.com/about-scopes/) and [publishing public scoped packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/).
 
-## Other hosting options
+## Hosting the catalog
 
-Vercel can host the same static export: Next.js preset, build command `npm test && npm run build`, output `out`, and an empty `NEXT_PUBLIC_BASE_PATH`. See [Vercel Next.js](https://vercel.com/docs/frameworks/full-stack/nextjs).
+The catalog build is a static export in `out/`. Any static host works: point the site root at that folder after `npm test && npm run build`, and leave `NEXT_PUBLIC_BASE_PATH` empty unless the site is served under a subpath.
 
-The optional GitHub Pages workflow derives its repository base path automatically. The prepared URL is https://shashikanth-gs.github.io/playground-kit/. Deployment is skipped until Pages is enabled with the Actions publishing source. A private repository requires an eligible GitHub plan for Pages; this restriction does not determine the Cloudflare build path.
+Vercel: Next.js preset, build command `npm test && npm run build`, output `out`. See [Vercel Next.js](https://vercel.com/docs/frameworks/full-stack/nextjs).
+
+The optional GitHub Pages workflow derives its repository base path automatically. The prepared URL is https://shashikanth-gs.github.io/playground-kit/. Deployment is skipped until Pages is enabled with the Actions publishing source. A private repository requires an eligible GitHub plan for Pages.
 
 Only GitHub Pages uses `/playground-kit` as a base path:
 

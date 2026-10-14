@@ -1,13 +1,3 @@
-/**
- * Workers Static Assets for the Next.js static export (`output: "export"` → out/).
- *
- * Do not point `main` at OpenNext/vinext worker bundles. A missing config caused
- * CI `npx wrangler deploy` to auto-migrate Next.js and fail on
- * `.next/standalone/.../pages-manifest.json`.
- *
- * Dashboard: build `npm test && npm run build`, deploy `npm run deploy:cloudflare`.
- * Prefer Cloudflare Pages with output directory `out` when the project is Pages.
- */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "playground-kit",

@@ -33,7 +33,7 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run typecheck
-      - name: Validate Cloudflare static assets configuration
+      - name: Validate static assets packaging
         run: npm run check:cloudflare
       - name: Disable Jekyll
         run: touch out/.nojekyll

@@ -1,11 +1,7 @@
 #!/usr/bin/env node
 /**
- * Guard Cloudflare deploys for this static Next.js export.
- *
- * The catalog uses `output: "export"` → `out/`. Workers Static Assets should
- * upload that folder via wrangler.jsonc. Bare `npx wrangler deploy` without a
- * committed config auto-detects Next.js and runs OpenNext migrate, which fails
- * looking for `.next/standalone/.../pages-manifest.json`.
+ * Deploy/check helper for the static Next.js export (`output: "export"` → out/).
+ * Ensures wrangler.jsonc stays assets-only and that out/ exists before deploy.
  */
 import { spawnSync } from "node:child_process"
 import fs from "node:fs"
@@ -52,7 +48,7 @@ export function assertStaticAssetsConfig(config = readWranglerConfig()) {
 
   if (config.pages_build_output_dir) {
     errors.push(
-      "wrangler.jsonc sets pages_build_output_dir. Use Cloudflare Pages dashboard output `out`, or Workers assets.directory — not both in this file.",
+      "wrangler.jsonc sets pages_build_output_dir; this repo uses assets.directory for ./out only.",
     )
   }
 
@@ -75,25 +71,13 @@ export function assertExportPresent(directory = outDir) {
   return errors
 }
 
-export function dashboardSettings() {
-  return {
-    preferred:
-      "Cloudflare Pages — Framework: Next.js (Static HTML Export); build: npm test && npm run build; output directory: out; leave deploy command empty.",
-    workersAlternative:
-      "Workers Builds — build: npm test && npm run build; deploy: npm run deploy:cloudflare; Node 22; leave NEXT_PUBLIC_BASE_PATH empty. Do not use bare npx wrangler deploy without wrangler.jsonc.",
-    avoid:
-      "OpenNext / vinext / output standalone / deploy commands that run opennextjs-cloudflare migrate or build.",
-  }
-}
-
 function fail(errors) {
   for (const error of errors) {
     console.error(`cloudflare-static: ${error}`)
   }
-  const settings = dashboardSettings()
-  console.error(`\nDashboard (Pages, preferred):\n  ${settings.preferred}`)
-  console.error(`Dashboard (Workers Static Assets):\n  ${settings.workersAlternative}`)
-  console.error(`Avoid:\n  ${settings.avoid}`)
+  console.error(
+    "This catalog is a static Next.js export (out/). Use assets-only Wrangler config pointing at ./out, not an OpenNext/server adapter.",
+  )
   process.exit(1)
 }
 
