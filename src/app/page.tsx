@@ -13,7 +13,7 @@ import { cardSurface } from "@/components/patterns/card-surface"
 import { ToolPreview } from "@/components/docs/examples"
 import { CodeBlock } from "@/components/patterns/code"
 import { getCatalog } from "@/lib/docs/catalog"
-import { asset } from "@/lib/docs/links"
+import { asset, MAINTAINER } from "@/lib/docs/links"
 
 const stack = [
   {
@@ -87,10 +87,15 @@ export default function Overview() {
             .
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button size="lg" render={<Link href="/getting-started/" />}>
+            <Button
+              nativeButton={false}
+              size="lg"
+              render={<Link href="/getting-started/" />}
+            >
               Start building <ArrowRightIcon />
             </Button>
             <Button
+              nativeButton={false}
               size="lg"
               variant="outline"
               render={<Link href="/components/" />}
@@ -103,6 +108,18 @@ export default function Overview() {
             <span>Light + dark</span>
             <span>Mobile aware</span>
           </div>
+          <p className="mt-5 max-w-md text-xs leading-6 text-muted-foreground">
+            Created and maintained by{" "}
+            <a
+              href={MAINTAINER.website}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-brand-text hover:underline"
+            >
+              {MAINTAINER.name}
+            </a>
+            .
+          </p>
         </div>
         <div className="min-w-0">
           <ToolPreview />

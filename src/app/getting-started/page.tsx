@@ -45,6 +45,7 @@ export default function GettingStarted() {
         description="A copy-and-compose workflow. No private npm registry, runtime service, or catalog dependency is required in your apps."
         actions={
           <Button
+            nativeButton={false}
             render={
               <a
                 href={asset("/downloads/http2xx-design-system.tar.gz")}
@@ -89,6 +90,7 @@ export default function GettingStarted() {
           system.
         </p>
         <Button
+          nativeButton={false}
           variant="outline"
           render={<a href={REPOSITORY} target="_blank" rel="noreferrer" />}
         >

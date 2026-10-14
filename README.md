@@ -1,5 +1,7 @@
 # http2xx design system
 
+Created and maintained by **[Shashi Kanth G S](https://shashikanth.me)** · [GitHub profile](https://github.com/shashikanth-gs).
+
 The reusable source kit extracted from http2xx.io, with a working reference catalog for building personal tools.
 
 **http2xx design system, built on shadcn/ui and Base UI.** Shared primitives and APIs come from these upstream projects; the http2xx semantic tokens, branding, and composed patterns form the custom layer. This project is independently maintained.
@@ -8,7 +10,7 @@ Original software and documentation are [MIT-licensed](LICENSE). Preserve [third
 
 **Source repository: private. Reference catalog and downloadable kit: public.** GitHub Pages does not inherit the repository’s privacy. The catalog intentionally exposes component source and the reusable kit, but never private product data.
 
-Catalog: https://shashikanth-gs.github.io/http2xx.io-desing-system/
+The catalog is prepared for hosting; it is not publicly deployed yet. Recommended custom subdomain: **design.http2xx.io**. The prepared GitHub Pages URL is https://shashikanth-gs.github.io/http2xx.io-desing-system/.
 
 ## What it is based on
 
@@ -77,6 +79,28 @@ The archive excludes the catalog, generated output, Git metadata, dependencies, 
 | `AGENTS.md` | Rules for composing tools from this kit |
 | `LICENSE`, `BRAND.md` | Original-code license and separate brand terms |
 | `THIRD_PARTY_NOTICES.md`, `licenses/` | Attribution and complete upstream license texts |
+
+## Vercel and Cloudflare Pages
+
+Both can host this catalog under a custom subdomain. It uses Next.js static export (`output: "export"`), so no server runtime is required. The host's Git integration can build the repository when you push.
+
+**Suggested domain: `design.http2xx.io`.** It covers foundations, components, and patterns, and follows the convention used by [GitLab's design system](https://design.gitlab.com/). `ui.http2xx.io` is a shorter option focused on the component kit; `design-system.http2xx.io` is explicit but longer. You can also use `design.shashikanth.me` if you want the domain to emphasize your personal identity. These are suggestions, not configured DNS records.
+
+| Setting | Vercel | Cloudflare Pages |
+| --- | --- | --- |
+| Framework preset | Next.js | Next.js (Static HTML Export) |
+| Install command | `npm ci` | Automatic npm install from the lockfile |
+| Build command | `npm run build` | `npm run build` (override the preset's `npx next build` so the kit and notices are generated) |
+| Output directory | `out` | `out` |
+| Production branch | `main` | `main` |
+| Node.js | 22 or newer | 22 or newer (`NODE_VERSION=22` is an explicit option) |
+| `NEXT_PUBLIC_BASE_PATH` | Unset / empty | Unset / empty |
+
+Builds on a custom domain must use the empty base path; `/http2xx.io-desing-system` is only for the repository URL on GitHub Pages. Do not copy that GitHub Actions environment value into Vercel or Cloudflare.
+
+After importing the repository, add your selected subdomain in the host's custom-domain settings. Use the DNS target shown for that deployment. With Cloudflare Pages, add the domain to the Pages project before adding a manual CNAME; with Vercel, use the CNAME target displayed in the project's Domains settings. No deployment or DNS change is performed by this repository itself.
+
+References: [Vercel Next.js](https://vercel.com/docs/frameworks/full-stack/nextjs), [Vercel domains](https://vercel.com/docs/domains/working-with-domains/add-a-domain), [Cloudflare static Next.js](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/), [Cloudflare custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/).
 
 ## GitHub Pages
 

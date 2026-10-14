@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { DocsShell } from "@/components/docs/shell"
 import { getCatalog } from "@/lib/docs/catalog"
-import { asset } from "@/lib/docs/links"
+import { asset, MAINTAINER } from "@/lib/docs/links"
 import "@/styles/globals.css"
 
 const sans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
@@ -17,9 +17,14 @@ const heading = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: { default: "http2xx · Design system", template: "%s · http2xx" },
+  title: {
+    default: `http2xx Design System · ${MAINTAINER.name}`,
+    template: "%s · http2xx",
+  },
+  authors: [{ name: MAINTAINER.name, url: MAINTAINER.website }],
+  creator: MAINTAINER.name,
   description:
-    "A source-owned design system for personal tools. Explore the foundations, components, and patterns extracted from http2xx.io.",
+    "The http2xx design system, created and maintained by Shashi Kanth G S. Explore the foundations, components, and patterns for building personal tools.",
   icons: {
     icon: asset("/brand/favicon.svg"),
     apple: asset("/brand/apple-touch-icon.png"),

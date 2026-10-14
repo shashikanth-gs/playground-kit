@@ -68,7 +68,7 @@ fs.writeFileSync(
 )
 fs.writeFileSync(
   path.join(kit, "README.md"),
-  "# http2xx source kit\n\nBuilt on shadcn/ui and Base UI. Read AGENTS.md, then COMPONENTS.md. Copy src/ and public/brand/ into a Next.js 16 + React 19 + Tailwind 4 host. Run `node install-dependencies.mjs --target /path/to/host`, then install dependencies with your package manager. Use scaffold/ for your layout and template. Change the theme storage key and product identity. The docs app is intentionally excluded.\n\nOriginal code is MIT-licensed. Preserve LICENSE, THIRD_PARTY_NOTICES.md, and licenses/ when redistributing. Reference logos and names are covered separately by BRAND.md; replace them for other products.\n\nThis is a source kit, not an npm package.\n",
+  "# http2xx source kit\n\nCreated and maintained by [Shashi Kanth G S](https://shashikanth.me) · [GitHub profile](https://github.com/shashikanth-gs).\n\nBuilt on shadcn/ui and Base UI. Read AGENTS.md, then COMPONENTS.md. Copy src/ and public/brand/ into a Next.js 16 + React 19 + Tailwind 4 host. Run `node install-dependencies.mjs --target /path/to/host`, then install dependencies with your package manager. Use scaffold/ for your layout and template. Change the theme storage key and product identity. The docs app is intentionally excluded.\n\nOriginal code is MIT-licensed. Preserve LICENSE, THIRD_PARTY_NOTICES.md, and licenses/ when redistributing. Reference logos and names are covered separately by BRAND.md; replace them for other products.\n\nThis is a source kit, not an npm package.\n",
 )
 const archive = path.join(output, "http2xx-design-system.tar.gz")
 const result = spawnSync(

@@ -3,7 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "description": "The http2xx source design system and its interactive reference catalog.",
+  "author": {
+    "name": "Shashi Kanth G S",
+    "url": "https://shashikanth.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shashikanth-gs/http2xx.io-desing-system.git"
+  },
+  "homepage": "https://github.com/shashikanth-gs/http2xx.io-desing-system#readme",
+  "description": "The http2xx design system, created and maintained by Shashi Kanth G S, with reusable source and an interactive reference catalog.",
   "engines": {
     "node": ">=22"
   },

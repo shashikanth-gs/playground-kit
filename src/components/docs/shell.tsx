@@ -21,7 +21,7 @@ import { ResponsiveDialog } from "@/components/patterns/responsive-dialog"
 import { ListGroup, ListItem } from "@/components/patterns/collections"
 import { Tag } from "@/components/patterns/status"
 import { cn } from "@/lib/utils"
-import { asset, REPOSITORY } from "@/lib/docs/links"
+import { asset, MAINTAINER, REPOSITORY } from "@/lib/docs/links"
 import type { CatalogEntry } from "@/lib/docs/catalog"
 
 const navigation = [
@@ -147,6 +147,7 @@ export function DocsShell({
           </div>
           <ThemeMenu className="min-h-11 min-w-11 lg:hidden" />
           <Button
+            nativeButton={false}
             variant="ghost"
             render={<a href={REPOSITORY} target="_blank" rel="noreferrer" />}
             className="hidden sm:inline-flex"
@@ -195,7 +196,16 @@ export function DocsShell({
             <p className="text-xs leading-relaxed text-muted-foreground">
               Built for the tools you build.
               <br />
-              Extracted from http2xx.io.
+              Maintained by{" "}
+              <a
+                href={MAINTAINER.website}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-brand-text hover:underline"
+              >
+                {MAINTAINER.name}
+              </a>
+              .
             </p>
           </div>
         </aside>
@@ -205,7 +215,38 @@ export function DocsShell({
         >
           {children}
           <footer className="mt-20 flex flex-wrap items-center justify-between gap-3 border-t pt-6 text-xs text-muted-foreground">
-            <span>http2xx.io / Design system</span>
+            <div className="space-y-2">
+              <p>
+                Created and maintained by{" "}
+                <a
+                  href={MAINTAINER.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-medium text-brand-text hover:underline"
+                >
+                  {MAINTAINER.name}
+                </a>
+                .
+              </p>
+              <div className="flex gap-4">
+                <a
+                  href={MAINTAINER.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-brand-text hover:underline"
+                >
+                  shashikanth.me
+                </a>
+                <a
+                  href={MAINTAINER.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-brand-text hover:underline"
+                >
+                  GitHub profile
+                </a>
+              </div>
+            </div>
             <div className="flex flex-wrap gap-4">
               <a
                 href={asset("/licenses/LICENSE")}

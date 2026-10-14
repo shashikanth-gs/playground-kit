@@ -2,6 +2,8 @@
 
 **http2xx design system, built on shadcn/ui and Base UI.**
 
+Created and maintained by [Shashi Kanth G S](https://shashikanth.me) · [GitHub profile](https://github.com/shashikanth-gs).
+
 The UI primitives in `src/components/ui/` are adapted from shadcn/ui's `base-nova` style, with Base UI providing interaction behavior. Their shared appearance and APIs are intentional reuse of these upstream projects. The http2xx semantic tokens, branding, and composed patterns form the custom layer. This project is independently maintained and is not an official shadcn/ui or Base UI release.
 
 Original software and documentation are covered by the root [MIT license](LICENSE), subject to the separate [brand notice](BRAND.md). Upstream source, packages, and fonts retain their own licenses and copyright notices; the root license does not replace them.
