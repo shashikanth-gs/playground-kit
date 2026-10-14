@@ -14,14 +14,29 @@ for (const folder of [
   "src/styles",
   "public/brand",
   "scaffold",
+  "licenses",
 ]) {
   fs.cpSync(path.join(root, folder), path.join(kit, folder), {
     recursive: true,
     filter: (source) => !source.split(path.sep).includes("docs"),
   })
 }
-for (const file of ["AGENTS.md", "COMPONENTS.md", "components.json"])
+const noticeFiles = ["LICENSE", "BRAND.md", "THIRD_PARTY_NOTICES.md"]
+for (const file of [
+  "AGENTS.md",
+  "COMPONENTS.md",
+  "components.json",
+  ...noticeFiles,
+])
   fs.copyFileSync(path.join(root, file), path.join(kit, file))
+const publicNotices = path.join(root, "public/licenses")
+fs.rmSync(publicNotices, { recursive: true, force: true })
+fs.mkdirSync(publicNotices, { recursive: true })
+for (const file of noticeFiles)
+  fs.copyFileSync(path.join(root, file), path.join(publicNotices, file))
+fs.cpSync(path.join(root, "licenses"), path.join(publicNotices, "licenses"), {
+  recursive: true,
+})
 fs.copyFileSync(
   path.join(root, "scripts/install-dependencies.mjs"),
   path.join(kit, "install-dependencies.mjs"),
@@ -53,7 +68,7 @@ fs.writeFileSync(
 )
 fs.writeFileSync(
   path.join(kit, "README.md"),
-  "# http2xx source kit\n\nRead AGENTS.md, then COMPONENTS.md. Copy src/ and public/brand/ into a Next.js 16 + React 19 + Tailwind 4 host. Run `node install-dependencies.mjs --target /path/to/host`, then install dependencies with your package manager. Use scaffold/ for your layout and template. Change the theme storage key and product identity. The docs app is intentionally excluded.\n\nThis is a source kit, not an npm package.\n",
+  "# http2xx source kit\n\nBuilt on shadcn/ui and Base UI. Read AGENTS.md, then COMPONENTS.md. Copy src/ and public/brand/ into a Next.js 16 + React 19 + Tailwind 4 host. Run `node install-dependencies.mjs --target /path/to/host`, then install dependencies with your package manager. Use scaffold/ for your layout and template. Change the theme storage key and product identity. The docs app is intentionally excluded.\n\nOriginal code is MIT-licensed. Preserve LICENSE, THIRD_PARTY_NOTICES.md, and licenses/ when redistributing. Reference logos and names are covered separately by BRAND.md; replace them for other products.\n\nThis is a source kit, not an npm package.\n",
 )
 const archive = path.join(output, "http2xx-design-system.tar.gz")
 const result = spawnSync(

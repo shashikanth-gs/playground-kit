@@ -21,7 +21,7 @@ import { ResponsiveDialog } from "@/components/patterns/responsive-dialog"
 import { ListGroup, ListItem } from "@/components/patterns/collections"
 import { Tag } from "@/components/patterns/status"
 import { cn } from "@/lib/utils"
-import { REPOSITORY } from "@/lib/docs/links"
+import { asset, REPOSITORY } from "@/lib/docs/links"
 import type { CatalogEntry } from "@/lib/docs/catalog"
 
 const navigation = [
@@ -206,9 +206,26 @@ export function DocsShell({
           {children}
           <footer className="mt-20 flex flex-wrap items-center justify-between gap-3 border-t pt-6 text-xs text-muted-foreground">
             <span>http2xx.io / Design system</span>
-            <span className="font-mono">
-              Source owned. Theme aware. Tool ready.
-            </span>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href={asset("/licenses/LICENSE")}
+                className="hover:text-brand-text hover:underline"
+              >
+                MIT license
+              </a>
+              <a
+                href={asset("/licenses/THIRD_PARTY_NOTICES.md")}
+                className="hover:text-brand-text hover:underline"
+              >
+                Third-party notices
+              </a>
+              <a
+                href={asset("/licenses/BRAND.md")}
+                className="hover:text-brand-text hover:underline"
+              >
+                Brand terms
+              </a>
+            </div>
           </footer>
         </main>
       </div>

@@ -95,6 +95,38 @@ export default function GettingStarted() {
           Private source repository <ArrowUpRightIcon />
         </Button>
       </section>
+      <section className="mt-10 space-y-4">
+        <h2 className="font-heading text-xl font-semibold">
+          Keep the notices with the source.
+        </h2>
+        <p className="text-sm leading-7 text-muted-foreground">
+          Original code is MIT-licensed. The download preserves the licenses for
+          shadcn/ui, Base UI, other shared dependencies, and the fonts. Keep
+          LICENSE, THIRD_PARTY_NOTICES.md, and the licenses directory with any
+          redistributed kit. Replace the http2xx reference identity for other
+          products; its artwork is covered separately by BRAND.md.
+        </p>
+        <div className="flex flex-wrap gap-4 text-sm">
+          <a
+            href={asset("/licenses/LICENSE")}
+            className="text-brand-text hover:underline"
+          >
+            MIT license
+          </a>
+          <a
+            href={asset("/licenses/THIRD_PARTY_NOTICES.md")}
+            className="text-brand-text hover:underline"
+          >
+            Third-party notices
+          </a>
+          <a
+            href={asset("/licenses/BRAND.md")}
+            className="text-brand-text hover:underline"
+          >
+            Brand terms
+          </a>
+        </div>
+      </section>
     </div>
   )
 }

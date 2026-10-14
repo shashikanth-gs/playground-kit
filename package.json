@@ -2,6 +2,7 @@
   "name": "@http2xx/design-system",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "The http2xx source design system and its interactive reference catalog.",
   "engines": {
     "node": ">=22"

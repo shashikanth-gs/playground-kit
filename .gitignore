@@ -3,6 +3,7 @@ node_modules/
 out/
 artifacts/
 public/downloads/
+public/licenses/
 .DS_Store
 .playwright-mcp/
 *.tsbuildinfo

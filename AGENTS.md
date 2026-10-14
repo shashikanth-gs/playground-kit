@@ -28,6 +28,7 @@ Host app: Next.js 16, React 19, Tailwind CSS 4, TypeScript. Path alias `@/*` →
 5. Import the stylesheet once, from the root layout: `import "@/styles/globals.css"`. Delete any other global CSS so tokens are not duplicated.
 6. Rename `THEME_STORAGE_KEY` in `src/components/theme/theme-script.tsx` to a key unique to this product (for example `acme-theme`). The kit value is `http2xx-design-system-theme`.
 7. Replace the logomark if this is not an http2xx product. `Logo`, `Logomark`, and `Wordmark` live in `src/components/brand/logo.tsx`. The mobile top bar links home with `aria-label="http2xx.io home"` — change that label with the brand.
+8. Preserve `LICENSE`, `BRAND.md`, `THIRD_PARTY_NOTICES.md`, and `licenses/` with redistributed source. Original code is MIT-licensed; upstream components and fonts retain their own licenses. The reference brand artwork has separate terms in `BRAND.md`.
 
 `components.json` is the shadcn config (`style: base-nova`, Base UI, lucide). Adding a missing primitive later:
 

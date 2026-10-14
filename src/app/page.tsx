@@ -13,6 +13,7 @@ import { cardSurface } from "@/components/patterns/card-surface"
 import { ToolPreview } from "@/components/docs/examples"
 import { CodeBlock } from "@/components/patterns/code"
 import { getCatalog } from "@/lib/docs/catalog"
+import { asset } from "@/lib/docs/links"
 
 const stack = [
   {
@@ -63,6 +64,27 @@ export default function Overview() {
           <p className="mt-7 max-w-md text-base leading-7 text-muted-foreground">
             The components, tokens, and patterns behind http2xx.io. A shared
             visual language for everything you build next.
+          </p>
+          <p className="mt-3 text-xs leading-6 text-muted-foreground">
+            Built on{" "}
+            <a
+              href="https://ui.shadcn.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-brand-text hover:underline"
+            >
+              shadcn/ui
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://base-ui.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-brand-text hover:underline"
+            >
+              Base UI
+            </a>
+            .
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button size="lg" render={<Link href="/getting-started/" />}>
@@ -119,6 +141,26 @@ export default function Overview() {
             You own the files in each tool. Keep the visual foundation
             consistent and shape the screens around the job.
           </p>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs">
+            <a
+              href={asset("/licenses/LICENSE")}
+              className="text-brand-text hover:underline"
+            >
+              MIT license
+            </a>
+            <a
+              href={asset("/licenses/THIRD_PARTY_NOTICES.md")}
+              className="text-brand-text hover:underline"
+            >
+              Third-party notices
+            </a>
+            <a
+              href={asset("/licenses/BRAND.md")}
+              className="text-brand-text hover:underline"
+            >
+              Brand terms
+            </a>
+          </div>
         </div>
         <div className="divide-y border-y">
           {stack.map((item) => (

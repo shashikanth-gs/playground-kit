@@ -21,6 +21,15 @@ test("ships a complete source kit without the docs app or workspace data", () =>
     "install-dependencies.mjs",
     "AGENTS.md",
     "COMPONENTS.md",
+    "LICENSE",
+    "BRAND.md",
+    "THIRD_PARTY_NOTICES.md",
+    "licenses/shadcn.txt",
+    "licenses/base-ui-react.txt",
+    "licenses/lucide-react.txt",
+    "licenses/geist-OFL.txt",
+    "licenses/geistmono-OFL.txt",
+    "licenses/spacegrotesk-OFL.txt",
   ]) {
     assert.ok(
       listing.stdout.includes(`http2xx-design-system/${file}`),
@@ -37,4 +46,21 @@ test("ships a complete source kit without the docs app or workspace data", () =>
     fs.readFileSync("src/styles/globals.css"),
     fs.readFileSync("artifacts/http2xx-design-system/src/styles/globals.css"),
   )
+  for (const file of [
+    "LICENSE",
+    "BRAND.md",
+    "THIRD_PARTY_NOTICES.md",
+    ...fs.readdirSync("licenses").map((name) => `licenses/${name}`),
+  ]) {
+    assert.deepEqual(
+      fs.readFileSync(file),
+      fs.readFileSync(`artifacts/http2xx-design-system/${file}`),
+      `kit changed ${file}`,
+    )
+    assert.deepEqual(
+      fs.readFileSync(file),
+      fs.readFileSync(`public/licenses/${file}`),
+      `catalog changed ${file}`,
+    )
+  }
 })

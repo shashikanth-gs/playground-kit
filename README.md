@@ -2,6 +2,10 @@
 
 The reusable source kit extracted from http2xx.io, with a working reference catalog for building personal tools.
 
+**http2xx design system, built on shadcn/ui and Base UI.** Shared primitives and APIs come from these upstream projects; the http2xx semantic tokens, branding, and composed patterns form the custom layer. This project is independently maintained.
+
+Original software and documentation are [MIT-licensed](LICENSE). Preserve [third-party notices](THIRD_PARTY_NOTICES.md) and the full upstream texts in `licenses/` when redistributing the kit. The reference name and artwork are covered separately by [BRAND.md](BRAND.md); replace that identity for other products.
+
 **Source repository: private. Reference catalog and downloadable kit: public.** GitHub Pages does not inherit the repository’s privacy. The catalog intentionally exposes component source and the reusable kit, but never private product data.
 
 Catalog: https://shashikanth-gs.github.io/http2xx.io-desing-system/
@@ -54,7 +58,7 @@ NEXT_PUBLIC_BASE_PATH=/http2xx.io-desing-system npm run preview
 6. Update product metadata, the theme storage key, brand mark, and the phone home link’s accessible label.
 7. Keep `AGENTS.md` and `COMPONENTS.md` available to the host’s agents. Read each component source before use.
 
-The archive excludes the catalog, generated output, Git metadata, dependencies, and environment files. It includes components, patterns, theme, phone chrome, tokens, shared helpers, reference brand assets, scaffold, dependencies, and agent documentation.
+The archive excludes the catalog, generated output, Git metadata, dependencies, and environment files. It includes components, patterns, theme, phone chrome, tokens, shared helpers, reference brand assets, scaffold, dependency requirements, agent documentation, and all license notices. Retain `LICENSE`, `BRAND.md`, `THIRD_PARTY_NOTICES.md`, and `licenses/` in each redistributed copy. The exported catalog also serves them under `/licenses/`.
 
 ## Repository layout
 
@@ -71,6 +75,8 @@ The archive excludes the catalog, generated output, Git metadata, dependencies, 
 | `scripts/` | Kit packaging, dependency helper, static preview |
 | `COMPONENTS.md` | Component API inventory |
 | `AGENTS.md` | Rules for composing tools from this kit |
+| `LICENSE`, `BRAND.md` | Original-code license and separate brand terms |
+| `THIRD_PARTY_NOTICES.md`, `licenses/` | Attribution and complete upstream license texts |
 
 ## GitHub Pages
 
