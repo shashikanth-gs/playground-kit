@@ -6,17 +6,31 @@ import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import {
   ArrowUpRightIcon,
+  BadgeCheckIcon,
   BookOpenIcon,
   BoxIcon,
+  ChevronsUpDownIcon,
   CodeIcon,
   LayersIcon,
   LayoutTemplateIcon,
+  LogOutIcon,
   SearchIcon,
   XIcon,
 } from "lucide-react"
+import { toast } from "sonner"
 import { Logo } from "@/components/brand/logo"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { ThemeMenu, ThemeSegmented } from "@/components/theme/theme-toggle"
 import { ResponsiveDialog } from "@/components/patterns/responsive-dialog"
 import { ListGroup, ListItem } from "@/components/patterns/collections"
@@ -26,6 +40,13 @@ import { TabBar } from "@/components/navigation/tab-bar"
 import { cn } from "@/lib/utils"
 import { asset, MAINTAINER, REPOSITORY } from "@/lib/docs/links"
 import type { CatalogEntry } from "@/lib/docs/catalog"
+
+/** Demo signed-in account for the catalog sidebar (not real auth). */
+const DEMO_USER = {
+  name: "Alex Rivera",
+  email: "alex@example.com",
+  initials: "AR",
+} as const
 
 const navigation = [
   { href: "/" as Route, title: "Overview", tabTitle: "Overview", icon: BookOpenIcon, number: "00", exact: true },
@@ -234,22 +255,59 @@ export function DocsShell({
               </div>
             ))}
           </div>
-          <div className="mt-auto space-y-3 px-3">
-            <Tag>v0.1.0</Tag>
-            <p className="text-xs leading-relaxed text-muted-foreground">
-              Built for technical playgrounds.
-              <br />
-              Maintained by{" "}
-              <a
-                href={MAINTAINER.website}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-brand-text hover:underline"
+          <div className="mt-auto space-y-3 border-t px-1 pt-4">
+            <div className="px-2">
+              <Tag>v0.1.0</Tag>
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left outline-none transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50"
+                aria-label="Account menu"
               >
-                {MAINTAINER.name}
-              </a>
-              .
-            </p>
+                <Avatar size="sm">
+                  <AvatarFallback>{DEMO_USER.initials}</AvatarFallback>
+                </Avatar>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-medium text-foreground">
+                    {DEMO_USER.name}
+                  </span>
+                  <span className="block truncate text-xs text-muted-foreground">
+                    {DEMO_USER.email}
+                  </span>
+                </span>
+                <ChevronsUpDownIcon className="size-4 shrink-0 text-muted-foreground" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="top" align="start" className="w-56">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="font-normal">
+                    <span className="flex flex-col gap-0.5">
+                      <span className="text-sm font-medium text-foreground">
+                        {DEMO_USER.name}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {DEMO_USER.email}
+                      </span>
+                    </span>
+                  </DropdownMenuLabel>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    onClick={() => toast.message("Demo account — no settings yet.")}
+                  >
+                    <BadgeCheckIcon />
+                    Account
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onClick={() => toast.message("Demo session — nothing to sign out of.")}
+                  >
+                    <LogOutIcon />
+                    Log out
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </aside>
         <main
